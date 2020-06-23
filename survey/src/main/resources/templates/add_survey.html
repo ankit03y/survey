@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Admin</title>
+</head>
+<body>
+    <a href="/login">Login</a>
+    <a href="/">Home</a>
+
+    <h1>
+        Welcome admin
+    </h1>
+    <form action="/add-survey" method="post">
+        <label for="question">question</label>
+        <textarea name="message" rows="10" cols="60" id="question" placeholder="enter the question"></textarea>
+        <br><br>
+        <input type="submit">
+        <label>optionA</label>
+        <input type="text" name="option" placeholder="enter the option A">
+        <label>optionB</label>
+        <input type="text" name="option" placeholder="enter the option B">
+    </form>
+
+</body>
+</html>
