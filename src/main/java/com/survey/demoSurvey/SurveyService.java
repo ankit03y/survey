@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.survey.demoSurvey.Constant.LOGGED_IN_COOKIE_NAME;
+
 @Service
 public class SurveyService {
     @Autowired
@@ -90,21 +92,64 @@ public class SurveyService {
     //==========================================================
     // cookie
     public void setCookie(HttpServletResponse response) {
-        response.addCookie(new Cookie("is-logged-in", "1"));
+        response.addCookie(new Cookie(LOGGED_IN_COOKIE_NAME, "1"));
+    }
 
+    public void setCookie(HttpServletResponse response, String name, String value) {
+        response.addCookie(new Cookie(name, value));
+    }
+
+    public void setCookie(HttpServletResponse response, String name, String value, int maxAgeInSeconds) {
+        Cookie cookieObj = new Cookie(name, value);
+        cookieObj.setMaxAge(maxAgeInSeconds);
+        response.addCookie(cookieObj);
+    }
+
+    public void setCookie(HttpServletResponse response, Cookie cookie) {
+        response.addCookie(cookie);
     }
 
     public Boolean getCookie(HttpServletRequest request, String cookieName) {
         Cookie[] allCookies = request.getCookies();
-        for(int i=0; i<allCookies.length; i++){
+        if (allCookies == null) {
+            return false;
+        }
+
+        for (int i = 0; i < allCookies.length; i++) {
             Cookie singleCookie = allCookies[i];
             String singleCookieName = singleCookie.getName();
 
-            if(cookieName.equals(singleCookieName)) {
+            if (cookieName.equals(singleCookieName)) {
                 return true;
             }
         }
         return false;
 
     }
+
+    public Cookie singleCookie(HttpServletRequest request, String cookieName) {
+        Cookie[] cookieArray = request.getCookies();
+        if (cookieArray == null) {
+            return null;
+        }
+        for (int i = 0; i < cookieArray.length; i++) {
+            Cookie cookieObject = cookieArray[i];
+            String singleCookieName = cookieObject.getName();
+
+            if (singleCookieName.equals(cookieName)) {
+                return cookieObject;
+            }
+        }
+        return null;
+    }
+
+    public void deleteCookie(HttpServletRequest request, HttpServletResponse response, String cookieName) {
+        Cookie cookieObject = singleCookie(request, cookieName);
+        if (cookieObject != null) {
+            cookieObject.setMaxAge(0);
+            setCookie(response, cookieObject);
+        }
+
+    }
 }
+
