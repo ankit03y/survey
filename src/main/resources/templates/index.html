@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Survey</title>
+</head>
+<body>
+
+<!--If-->
+<div th:if="${isLoginCookiePresent}">
+    <a href="/logout">Logout</a>
+</div>
+<!--Else-->
+<div th:unless="${isLoginCookiePresent}">
+    <a href="/login">Login</a>
+</div>
+<a href="/">Home</a>
+
+<div>
+    <h1>Listing all questions</h1>
+    <div th:each="singleDto : ${myDTOList}">
+        <div>
+            <span th:text="${singleDto.question.getId()}"> Title </span>
+        </div>
+                    
+        <div>
+            <span th:text="${singleDto.question.getQuestion()}"> Author </span>
+        </div>
+
+        <div th:each="singleAnswer: ${singleDto.getListOfAnswers()}">
+            <span th:text="${singleAnswer.getOptions()}"> Author </span>
+        </div>
+        <p>======================================================================</p>
+                
+    </div>
+</div>
+
+</body>
+</html>

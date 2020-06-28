@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>login page</title>
+</head>
+<body>
+<!--If-->
+<div th:if="${isLoginCookiePresent}">
+    <a href="/logout">Logout</a>
+</div>
+<!--Else-->
+<div th:unless="${isLoginCookiePresent}">
+    <a href="/login">Login</a>
+</div>
+<a href="/">Home</a>
+    <form action="/login" method="post">
+        <div class="login-wrap">
+            <div class="login-html">
+                <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+                <div class="login-form">
+                    <div class="sign-in-htm">
+                        <div class="group">
+                            <input type="text" name="email" placeholder="enter your email">
+
+                        </div>
+                        <div class="group">
+                            <input type="text" name="password" placeholder="enter your password">
+
+                        </div>
+                        <div class="group">
+                            <input id="check" type="checkbox" class="check" checked>
+                            <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                        </div>
+                        <div class="group">
+                            <input type="submit" class="button" value="Sign In">
+                        </div>
+                        <div class="hr"></div>
+                        <div class="foot-lnk">
+                            <a href="#forgot">Forgot Password?</a>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+</body>
+</html>
